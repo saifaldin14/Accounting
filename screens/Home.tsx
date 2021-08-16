@@ -48,9 +48,9 @@ const Home = () => {
         <Text style={styles.renderHeaderH2}>My Expenses</Text>
         <Text style={styles.renderHeaderH3}>Summary</Text>
       </View>
-      <View>
-        <View>
-          <Image />
+      <View style={styles.renderHeaderInnerView}>
+        <View style={styles.renderHeaderImageContainer}>
+          <Image source={icons.calendar} style={styles.renderHeaderIcon} />
         </View>
 
         <View>
@@ -109,5 +109,23 @@ const styles = StyleSheet.create({
   renderHeaderH3: {
     color: COLORS.darkgray,
     ...FONTS.h3,
+  },
+  renderHeaderInnerView: {
+    flexDirection: "row",
+    marginTop: SIZES.padding,
+    alignItems: "center",
+  },
+  renderHeaderImageContainer: {
+    backgroundColor: COLORS.lightGray,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  renderHeaderIcon: {
+    height: 20,
+    width: 20,
+    tintColor: COLORS.lightBlue,
   },
 });
