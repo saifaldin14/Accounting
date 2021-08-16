@@ -19,27 +19,14 @@ import { Svg } from "react-native-svg";
 
 import { COLORS, FONTS, SIZES, icons } from "../constants";
 import { categoriesData } from "../data";
+import { RenderItemProps } from "../interfaces";
 
-interface RenderItemProps {
-  id: number;
-  icon: any;
-  name: string;
-  color: string;
-  expenses: {
-    id: number;
-    title: string;
-    description: string;
-    location: string;
-    total: number;
-    status: string;
-  }[];
-}
 const Home = () => {
   const categoryListHeightAnimationValue = useRef(
     new Animated.Value(115)
   ).current;
 
-  const [categories, setCategories] = useState(categoriesData);
+  const [categories, setCategories] = useState<RenderItemProps>(categoriesData);
   const [viewMode, setViewMode] = useState("chart");
   const [selectedCategory, setSelectedCategory] = useState<RenderItemProps>();
   const [showMoreToggle, setShowMoreToggle] = useState(false);
@@ -98,7 +85,7 @@ const Home = () => {
     );
 
     return (
-      <View style={{ paddingHorizontal: SIZES.padding - 5 }}>
+      <View style={styles.renderCategoryListView}>
         <Animated.View style={{ height: categoryListHeightAnimationValue }}>
           <FlatList
             data={categories}
@@ -109,11 +96,7 @@ const Home = () => {
         </Animated.View>
 
         <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            marginVertical: SIZES.base,
-            justifyContent: "center",
-          }}
+          style={styles.renderCategoryListButton}
           onPress={() => {
             if (showMoreToggle) {
               Animated.timing(categoryListHeightAnimationValue, {
@@ -137,12 +120,7 @@ const Home = () => {
           </Text>
           <Image
             source={showMoreToggle ? icons.up_arrow : icons.down_arrow}
-            style={{
-              marginLeft: 5,
-              width: 15,
-              height: 15,
-              alignSelf: "center",
-            }}
+            style={styles.renderCategoryListImage}
           />
         </TouchableOpacity>
       </View>
@@ -254,5 +232,19 @@ const styles = StyleSheet.create({
     marginLeft: SIZES.base,
     color: COLORS.primary,
     ...FONTS.h4,
+  },
+  renderCategoryListView: {
+    paddingHorizontal: SIZES.padding - 5,
+  },
+  renderCategoryListButton: {
+    flexDirection: "row",
+    marginVertical: SIZES.base,
+    justifyContent: "center",
+  },
+  renderCategoryListImage: {
+    marginLeft: 5,
+    width: 15,
+    height: 15,
+    alignSelf: "center",
   },
 });

@@ -1,9 +1,9 @@
 import { COLORS, FONTS, SIZES, icons } from "../constants";
-
+import { RenderItemProps } from "../interfaces";
 const confirmStatus = "C";
 const pendingStatus = "P";
 
-export let categoriesData = [
+export const categoriesData: RenderItemProps[] = [
   {
     id: 1,
     name: "Education",
