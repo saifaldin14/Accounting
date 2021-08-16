@@ -53,9 +53,11 @@ const Home = () => {
           <Image source={icons.calendar} style={styles.renderHeaderIcon} />
         </View>
 
-        <View>
-          <Text></Text>
-          <Text></Text>
+        <View style={styles.renderHeaderTextContainer}>
+          <Text style={styles.renderHeaderTextDate}>August 16th, 2021</Text>
+          <Text style={styles.renderHeaderTextBody}>
+            18% more than last month
+          </Text>
         </View>
       </View>
     </View>
@@ -127,5 +129,16 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     tintColor: COLORS.lightBlue,
+  },
+  renderHeaderTextContainer: {
+    marginLeft: SIZES.padding,
+  },
+  renderHeaderTextDate: {
+    color: COLORS.primary,
+    ...FONTS.h3,
+  },
+  renderHeaderTextBody: {
+    color: COLORS.darkgray,
+    ...FONTS.body3,
   },
 });
