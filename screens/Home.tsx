@@ -30,6 +30,11 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showMoreToggle, setShowMoreToggle] = useState(false);
 
+  const renderNavBar = () => (
+    <View style={styles.renderNavBarView}>
+      <TouchableOpacity></TouchableOpacity>
+    </View>
+  );
   return (
     <View>
       <Text>Home</Text>
@@ -38,3 +43,28 @@ const Home = () => {
 };
 
 export default Home;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  renderNavBarView: {
+    flexDirection: "row",
+    height: 80,
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    paddingHorizontal: SIZES.padding,
+    backgroundColor: COLORS.white,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
+});
