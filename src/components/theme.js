@@ -4,7 +4,6 @@ import { moderateScale } from "react-native-size-matters";
 const theme = {
   colors: {
     white: "#fff",
-    black: "#000",
     primary: "#242C42",
     primary2: "#171E32",
     primary3: "#111526",

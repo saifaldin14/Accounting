@@ -10,8 +10,8 @@ import store from "./store";
 
 /* Stacks */
 import { AllAppsStackNavigator } from "./src/components/AllApps";
+import { Cryptonavigator } from "./src/crypto/Home";
 import { ExpenseNavigator } from "./src/expense__tracker";
-import { EmailNavigator } from "./src/gmail";
 
 import { LoadAssets, theme } from "./src/components";
 
@@ -41,12 +41,11 @@ export default function App() {
                 name="AllApps"
                 component={AllAppsStackNavigator}
               />
+              <AppStack.Screen name="Crypto" component={Cryptonavigator} />
               <AppStack.Screen
                 name="ExpenseTracker"
                 component={ExpenseNavigator}
               />
-
-              <AppStack.Screen name="Email" component={EmailNavigator} />
             </AppStack.Navigator>
           </SafeAreaProvider>
         </LoadAssets>

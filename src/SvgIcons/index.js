@@ -5,5 +5,3 @@ export { default as News } from "./News";
 export { default as Menu } from "./Menu";
 export { default as Add } from "./Add";
 export { default as Close } from "./Close";
-export { default as SendIcon } from "./SendIcon";
-export { default as Archive } from "./Archive";

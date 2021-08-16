@@ -21,6 +21,23 @@ const AllApps = ({ navigation }) => {
         alignItems="center"
       >
         <Box flexDirection="row" flexWrap="wrap" justifyContent="space-around">
+          <BorderlessButton onPress={() => navigation.navigate("Crypto")}>
+            <Box
+              width={130}
+              height={150}
+              margin="s"
+              backgroundColor="primary"
+              borderRadius="l"
+              marginBottom="m"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Text variant="title1" textAlign="center">
+                Crypto App
+              </Text>
+            </Box>
+          </BorderlessButton>
+
           <BorderlessButton
             onPress={() => navigation.navigate("ExpenseTracker")}
           >
@@ -36,25 +53,6 @@ const AllApps = ({ navigation }) => {
             >
               <Text variant="title1" textAlign="center">
                 Expense App
-              </Text>
-            </Box>
-          </BorderlessButton>
-
-          <BorderlessButton
-            onPress={() => navigation.navigate("Email")}
-          >
-            <Box
-              width={130}
-              height={150}
-              margin="s"
-              backgroundColor="primary"
-              borderRadius="l"
-              marginBottom="m"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Text variant="title1" textAlign="center">
-                Gmail Swipe
               </Text>
             </Box>
           </BorderlessButton>
