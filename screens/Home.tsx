@@ -41,6 +41,15 @@ const Home = () => {
       </TouchableOpacity>
     </View>
   );
+
+  const renderHeader = () => (
+    <View style={styles.renderHeaderView}>
+      <View>
+        <Text style={styles.renderHeaderH2}>My Expenses</Text>
+        <Text style={styles.renderHeaderH3}>Summary</Text>
+      </View>
+    </View>
+  );
   return (
     <View>
       <Text>Home</Text>
@@ -78,13 +87,17 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     width: 50,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+  renderHeaderView: {
+    paddingHorizontal: SIZES.padding,
+    paddingVertical: SIZES.padding,
+    backgroundColor: COLORS.white,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  renderHeaderH2: {
+    color: COLORS.primary,
+    ...FONTS.h2,
+  },
+  renderHeaderH3: {
+    color: COLORS.darkgray,
+    ...FONTS.h3,
   },
 });
