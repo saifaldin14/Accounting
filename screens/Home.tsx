@@ -32,7 +32,13 @@ const Home = () => {
 
   const renderNavBar = () => (
     <View style={styles.renderNavBarView}>
-      <TouchableOpacity></TouchableOpacity>
+      <TouchableOpacity style={styles.renderNavBarButtonBack}>
+        <Image source={icons.back_arrow} style={styles.renderNavBarBackIcon} />
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.renderNavBarButtonMore}>
+        <Image source={icons.more} style={styles.renderNavBarBackIcon} />
+      </TouchableOpacity>
     </View>
   );
   return (
@@ -57,6 +63,20 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     paddingHorizontal: SIZES.padding,
     backgroundColor: COLORS.white,
+  },
+  renderNavBarButtonBack: {
+    justifyContent: "center",
+    width: 50,
+  },
+  renderNavBarBackIcon: {
+    width: 30,
+    height: 30,
+    tintColor: COLORS.primary,
+  },
+  renderNavBarButtonMore: {
+    justifyContent: "center",
+    alignItems: "flex-end",
+    width: 50,
   },
   title: {
     fontSize: 20,
