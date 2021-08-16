@@ -20,6 +20,20 @@ import { Svg } from "react-native-svg";
 import { COLORS, FONTS, SIZES, icons } from "../constants";
 import { categoriesData } from "../data";
 
+interface RenderItemProps {
+  id: number;
+  icon: any;
+  name: string;
+  color: string;
+  expenses: {
+    id: number;
+    title: string;
+    description: string;
+    location: string;
+    total: number;
+    status: string;
+  }[];
+}
 const Home = () => {
   const categoryListHeightAnimationValue = useRef(
     new Animated.Value(115)
@@ -27,7 +41,7 @@ const Home = () => {
 
   const [categories, setCategories] = useState(categoriesData);
   const [viewMode, setViewMode] = useState("chart");
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState<RenderItemProps>();
   const [showMoreToggle, setShowMoreToggle] = useState(false);
 
   const renderNavBar = () => (
@@ -62,6 +76,78 @@ const Home = () => {
       </View>
     </View>
   );
+
+  const renderCategoryList = () => {
+    const renderItem = (item: RenderItemProps) => (
+      <TouchableOpacity
+        onPress={() => setSelectedCategory(item)}
+        style={{
+          ...styles.renderCategoryListItemButton,
+          ...styles.shadow,
+        }}
+      >
+        <Image
+          source={item.icon}
+          style={{
+            ...styles.renderCategoryListItemImage,
+            tintColor: item.color,
+          }}
+        />
+        <Text style={styles.renderCategoryListText}>{item.name}</Text>
+      </TouchableOpacity>
+    );
+
+    return (
+      <View style={{ paddingHorizontal: SIZES.padding - 5 }}>
+        <Animated.View style={{ height: categoryListHeightAnimationValue }}>
+          <FlatList
+            data={categories}
+            renderItem={renderItem}
+            keyExtractor={(item) => `${item.id}`}
+            numColumns={2}
+          />
+        </Animated.View>
+
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            marginVertical: SIZES.base,
+            justifyContent: "center",
+          }}
+          onPress={() => {
+            if (showMoreToggle) {
+              Animated.timing(categoryListHeightAnimationValue, {
+                toValue: 115,
+                duration: 500,
+                useNativeDriver: false,
+              }).start();
+            } else {
+              Animated.timing(categoryListHeightAnimationValue, {
+                toValue: 172.5,
+                duration: 500,
+                useNativeDriver: false,
+              }).start();
+            }
+
+            setShowMoreToggle(!showMoreToggle);
+          }}
+        >
+          <Text style={{ ...FONTS.body4 }}>
+            {showMoreToggle ? "LESS" : "MORE"}
+          </Text>
+          <Image
+            source={showMoreToggle ? icons.up_arrow : icons.down_arrow}
+            style={{
+              marginLeft: 5,
+              width: 15,
+              height: 15,
+              alignSelf: "center",
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
   return (
     <View>
       <Text>Home</Text>
@@ -76,6 +162,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 3,
   },
   renderNavBarView: {
     flexDirection: "row",
@@ -140,5 +236,23 @@ const styles = StyleSheet.create({
   renderHeaderTextBody: {
     color: COLORS.darkgray,
     ...FONTS.body3,
+  },
+  renderCategoryListItemButton: {
+    flex: 1,
+    flexDirection: "row",
+    margin: 5,
+    paddingVertical: SIZES.radius,
+    paddingHorizontal: SIZES.padding,
+    borderRadius: 5,
+    backgroundColor: COLORS.white,
+  },
+  renderCategoryListItemImage: {
+    width: 20,
+    height: 20,
+  },
+  renderCategoryListText: {
+    marginLeft: SIZES.base,
+    color: COLORS.primary,
+    ...FONTS.h4,
   },
 });
