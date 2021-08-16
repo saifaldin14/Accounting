@@ -48,6 +48,16 @@ const Home = () => {
         <Text style={styles.renderHeaderH2}>My Expenses</Text>
         <Text style={styles.renderHeaderH3}>Summary</Text>
       </View>
+      <View>
+        <View>
+          <Image />
+        </View>
+
+        <View>
+          <Text></Text>
+          <Text></Text>
+        </View>
+      </View>
     </View>
   );
   return (
