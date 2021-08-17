@@ -12,7 +12,6 @@ import {
   FlatList,
   Animated,
   Platform,
-  ListRenderItem,
 } from "react-native";
 import { VictoryPie } from "victory-native";
 
@@ -21,6 +20,8 @@ import { Svg } from "react-native-svg";
 import { COLORS, FONTS, SIZES, icons } from "../constants";
 import { categoriesData } from "../data";
 import { RenderItemProps } from "../interfaces";
+import { renderCategoryHeaderSection } from "../components/renderCategoryHeaderSection";
+import { renderHeader, renderNavBar } from "../components/renderVals";
 
 const Home = () => {
   const categoryListHeightAnimationValue = useRef(
@@ -29,109 +30,9 @@ const Home = () => {
 
   const [categories, setCategories] =
     useState<RenderItemProps[]>(categoriesData);
-  const [viewMode, setViewMode] = useState("chart");
+  const [viewMode, setViewMode] = useState<string>("chart");
   const [selectedCategory, setSelectedCategory] = useState<RenderItemProps>();
   const [showMoreToggle, setShowMoreToggle] = useState(false);
-
-  const renderNavBar = () => (
-    <View style={styles.renderNavBarView}>
-      <TouchableOpacity style={styles.renderNavBarButtonBack}>
-        <Image source={icons.back_arrow} style={styles.renderNavBarBackIcon} />
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.renderNavBarButtonMore}>
-        <Image source={icons.more} style={styles.renderNavBarBackIcon} />
-      </TouchableOpacity>
-    </View>
-  );
-
-  const renderHeader = () => (
-    <View style={styles.renderHeaderView}>
-      <View>
-        <Text style={styles.renderHeaderH2}>My Expenses</Text>
-        <Text style={styles.renderHeaderH3}>Summary</Text>
-      </View>
-      <View style={styles.renderHeaderInnerView}>
-        <View style={styles.renderHeaderImageContainer}>
-          <Image source={icons.calendar} style={styles.renderHeaderIcon} />
-        </View>
-
-        <View style={styles.renderHeaderTextContainer}>
-          <Text style={styles.renderHeaderTextDate}>August 16th, 2021</Text>
-          <Text style={styles.renderHeaderTextBody}>
-            18% more than last month
-          </Text>
-        </View>
-      </View>
-    </View>
-  );
-
-  const renderCategoryHeaderSection = () => (
-    <View
-      style={{
-        flexDirection: "row",
-        padding: SIZES.padding,
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      {/* Title */}
-      <View>
-        <Text style={{ color: COLORS.primary, ...FONTS.h3 }}>CATEGORIES</Text>
-        <Text style={{ color: COLORS.darkgray, ...FONTS.body4 }}>
-          {categories.length} Total
-        </Text>
-      </View>
-
-      {/* Button */}
-      <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: viewMode == "chart" ? COLORS.secondary : null,
-            height: 50,
-            width: 50,
-            borderRadius: 25,
-          }}
-          onPress={() => setViewMode("chart")}
-        >
-          <Image
-            source={icons.chart}
-            resizeMode="contain"
-            style={{
-              width: 20,
-              height: 20,
-              tintColor: viewMode == "chart" ? COLORS.white : COLORS.darkgray,
-            }}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: viewMode == "list" ? COLORS.secondary : null,
-            height: 50,
-            width: 50,
-            borderRadius: 25,
-            marginLeft: SIZES.base,
-          }}
-          onPress={() => setViewMode("list")}
-        >
-          <Image
-            source={icons.menu}
-            resizeMode="contain"
-            style={{
-              width: 20,
-              height: 20,
-              tintColor: viewMode == "list" ? COLORS.white : COLORS.darkgray,
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
 
   const renderCategoryList = () => {
     const renderItem: React.FC<RenderItemProps> = (item) => (
@@ -221,70 +122,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 3,
-  },
-  renderNavBarView: {
-    flexDirection: "row",
-    height: 80,
-    justifyContent: "space-between",
-    alignItems: "flex-end",
-    paddingHorizontal: SIZES.padding,
-    backgroundColor: COLORS.white,
-  },
-  renderNavBarButtonBack: {
-    justifyContent: "center",
-    width: 50,
-  },
-  renderNavBarBackIcon: {
-    width: 30,
-    height: 30,
-    tintColor: COLORS.primary,
-  },
-  renderNavBarButtonMore: {
-    justifyContent: "center",
-    alignItems: "flex-end",
-    width: 50,
-  },
-  renderHeaderView: {
-    paddingHorizontal: SIZES.padding,
-    paddingVertical: SIZES.padding,
-    backgroundColor: COLORS.white,
-  },
-  renderHeaderH2: {
-    color: COLORS.primary,
-    ...FONTS.h2,
-  },
-  renderHeaderH3: {
-    color: COLORS.darkgray,
-    ...FONTS.h3,
-  },
-  renderHeaderInnerView: {
-    flexDirection: "row",
-    marginTop: SIZES.padding,
-    alignItems: "center",
-  },
-  renderHeaderImageContainer: {
-    backgroundColor: COLORS.lightGray,
-    height: 50,
-    width: 50,
-    borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  renderHeaderIcon: {
-    height: 20,
-    width: 20,
-    tintColor: COLORS.lightBlue,
-  },
-  renderHeaderTextContainer: {
-    marginLeft: SIZES.padding,
-  },
-  renderHeaderTextDate: {
-    color: COLORS.primary,
-    ...FONTS.h3,
-  },
-  renderHeaderTextBody: {
-    color: COLORS.darkgray,
-    ...FONTS.body3,
   },
   renderCategoryListItemButton: {
     flex: 1,
