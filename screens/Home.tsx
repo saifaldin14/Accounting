@@ -12,6 +12,7 @@ import {
   FlatList,
   Animated,
   Platform,
+  ListRenderItem,
 } from "react-native";
 import { VictoryPie } from "victory-native";
 
@@ -26,7 +27,8 @@ const Home = () => {
     new Animated.Value(115)
   ).current;
 
-  const [categories, setCategories] = useState<RenderItemProps>(categoriesData);
+  const [categories, setCategories] =
+    useState<RenderItemProps[]>(categoriesData);
   const [viewMode, setViewMode] = useState("chart");
   const [selectedCategory, setSelectedCategory] = useState<RenderItemProps>();
   const [showMoreToggle, setShowMoreToggle] = useState(false);
@@ -64,24 +66,93 @@ const Home = () => {
     </View>
   );
 
-  const renderCategoryList = () => {
-    const renderItem = (item: RenderItemProps) => (
-      <TouchableOpacity
-        onPress={() => setSelectedCategory(item)}
-        style={{
-          ...styles.renderCategoryListItemButton,
-          ...styles.shadow,
-        }}
-      >
-        <Image
-          source={item.icon}
+  const renderCategoryHeaderSection = () => (
+    <View
+      style={{
+        flexDirection: "row",
+        padding: SIZES.padding,
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      {/* Title */}
+      <View>
+        <Text style={{ color: COLORS.primary, ...FONTS.h3 }}>CATEGORIES</Text>
+        <Text style={{ color: COLORS.darkgray, ...FONTS.body4 }}>
+          {categories.length} Total
+        </Text>
+      </View>
+
+      {/* Button */}
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity
           style={{
-            ...styles.renderCategoryListItemImage,
-            tintColor: item.color,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: viewMode == "chart" ? COLORS.secondary : null,
+            height: 50,
+            width: 50,
+            borderRadius: 25,
           }}
-        />
-        <Text style={styles.renderCategoryListText}>{item.name}</Text>
-      </TouchableOpacity>
+          onPress={() => setViewMode("chart")}
+        >
+          <Image
+            source={icons.chart}
+            resizeMode="contain"
+            style={{
+              width: 20,
+              height: 20,
+              tintColor: viewMode == "chart" ? COLORS.white : COLORS.darkgray,
+            }}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: viewMode == "list" ? COLORS.secondary : null,
+            height: 50,
+            width: 50,
+            borderRadius: 25,
+            marginLeft: SIZES.base,
+          }}
+          onPress={() => setViewMode("list")}
+        >
+          <Image
+            source={icons.menu}
+            resizeMode="contain"
+            style={{
+              width: 20,
+              height: 20,
+              tintColor: viewMode == "list" ? COLORS.white : COLORS.darkgray,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  const renderCategoryList = () => {
+    const renderItem: React.FC<RenderItemProps> = (item) => (
+      <React.Fragment>
+        <TouchableOpacity
+          onPress={() => setSelectedCategory(item)}
+          style={{
+            ...styles.renderCategoryListItemButton,
+            ...styles.shadow,
+          }}
+        >
+          <Image
+            source={item.icon}
+            style={{
+              ...styles.renderCategoryListItemImage,
+              tintColor: item.color,
+            }}
+          />
+          <Text style={styles.renderCategoryListText}>{item.name}</Text>
+        </TouchableOpacity>
+      </React.Fragment>
     );
 
     return (
@@ -89,7 +160,7 @@ const Home = () => {
         <Animated.View style={{ height: categoryListHeightAnimationValue }}>
           <FlatList
             data={categories}
-            renderItem={renderItem}
+            renderItem={({ item }) => renderItem(item)}
             keyExtractor={(item) => `${item.id}`}
             numColumns={2}
           />

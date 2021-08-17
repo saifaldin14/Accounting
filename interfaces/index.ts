@@ -1,4 +1,4 @@
-export type RenderItemProps = {
+export interface RenderItemProps {
   id: number;
   icon: any;
   name: string;
@@ -11,4 +11,4 @@ export type RenderItemProps = {
     total: number;
     status: string;
   }[];
-};
+}
