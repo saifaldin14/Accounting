@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
-import { COLORS, FONTS, SIZES, icons } from "../constants";
-import { RenderItemProps } from "../interfaces";
+import { COLORS, FONTS, SIZES, icons } from "../../constants";
+import { RenderItemProps } from "../../interfaces";
 
 export const renderCategoryHeaderSection = (
   categories: RenderItemProps[],
