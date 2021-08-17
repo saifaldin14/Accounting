@@ -12,3 +12,12 @@ export interface RenderItemProps {
     status: string;
   }[];
 }
+
+export interface RenderItemExpenseProps {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  total: number;
+  status: string;
+}

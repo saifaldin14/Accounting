@@ -26,6 +26,8 @@ import {
   renderNavBar,
 } from "../components/expenseTracker/renderVals";
 import { renderCategoryList } from "../components/expenseTracker/renderCategoryList";
+import { renderIncomingExpensesTitle } from "../components/expenseTracker/renderIncomingExpensesTitle";
+import { renderIncomingExpenses } from "../components/expenseTracker/renderIncomingExpenses";
 
 const Home = () => {
   const categoryListHeightAnimationValue = useRef(
