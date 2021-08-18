@@ -8,7 +8,6 @@ import {
   Animated,
   FlatList,
 } from "react-native";
-import { Value } from "react-native-reanimated";
 
 import { COLORS, FONTS, SIZES, icons } from "../../constants";
 import { RenderItemProps } from "../../interfaces";
