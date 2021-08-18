@@ -10,6 +10,7 @@ import {
   Platform,
 } from "react-native";
 import { Value } from "react-native-reanimated";
+import Svg from "react-native-svg";
 import { VictoryPie } from "victory-native";
 
 import { COLORS, FONTS, SIZES, icons } from "../../constants";
@@ -28,63 +29,84 @@ export const renderChart = (
     0
   );
 
+  const VictoryPieComponent = () => (
+    <VictoryPie
+      data={chartData}
+      labels={(datum) => `${datum.y}`}
+      radius={({ datum }) =>
+        selectedCategory && selectedCategory.name === datum.name
+          ? SIZES.width * 0.4
+          : SIZES.width * 0.4 - 10
+      }
+      innerRadius={70}
+      labelRadius={({ innerRadius }) => {
+        let ret: number = 0;
+        if (typeof innerRadius === "number") {
+          ret = (SIZES.width * 0.4 + innerRadius) / 2.5;
+        } else {
+          ret = (SIZES.width * 0.4) / 2.5;
+        }
+        return ret;
+      }}
+      style={{
+        labels: { fill: "white", ...FONTS.body3 },
+        parent: {
+          boxShadow: "10",
+          //...styles.shadow,
+        },
+      }}
+      width={SIZES.width * 0.8}
+      height={SIZES.width * 0.8}
+      colorScale={colorScales}
+      events={[
+        {
+          target: "data",
+          eventHandlers: {
+            onPress: () => {
+              return [
+                {
+                  target: "labels",
+                  mutation: (props) => {
+                    const categoryName = chartData[props.index].name;
+                    setSelectCategoryByName(categoryName);
+                  },
+                },
+              ];
+            },
+          },
+        },
+      ]}
+    />
+  );
+
+  const ChartText = () => (
+    <View style={{ position: "absolute", top: "42%", left: "42%" }}>
+      <Text style={{ ...FONTS.h1, textAlign: "center" }}>
+        {totalExpenseCount}
+      </Text>
+      <Text style={{ ...FONTS.body3, textAlign: "center" }}>Expenses</Text>
+    </View>
+  );
+
   if (Platform.OS === "ios") {
     return (
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <VictoryPie
-          data={chartData}
-          labels={(datum) => `${datum.y}`}
-          radius={({ datum }) =>
-            selectedCategory && selectedCategory.name === datum.name
-              ? SIZES.width * 0.4
-              : SIZES.width * 0.4 - 10
-          }
-          innerRadius={70}
-          labelRadius={({ innerRadius }) => {
-            let ret: number = 0;
-            if (typeof innerRadius === "number") {
-              ret = (SIZES.width * 0.4 + innerRadius) / 2.5;
-            } else {
-              ret = (SIZES.width * 0.4) / 2.5;
-            }
-            return ret;
-          }}
-          style={{
-            labels: { fill: "white", ...FONTS.body3 },
-            parent: {
-              boxShadow: "10",
-              //...styles.shadow,
-            },
-          }}
-          width={SIZES.width * 0.8}
-          height={SIZES.width * 0.8}
-          colorScale={colorScales}
-          events={[
-            {
-              target: "data",
-              eventHandlers: {
-                onPress: () => {
-                  return [
-                    {
-                      target: "labels",
-                      mutation: (props) => {
-                        const categoryName = chartData[props.index].name;
-                        setSelectCategoryByName(categoryName);
-                      },
-                    },
-                  ];
-                },
-              },
-            },
-          ]}
-        />
-
-        <View style={{ position: "absolute", top: "42%", left: "42%" }}>
-          <Text style={{ ...FONTS.h1, textAlign: "center" }}>
-            {totalExpenseCount}
-          </Text>
-          <Text style={{ ...FONTS.body3, textAlign: "center" }}>Expenses</Text>
-        </View>
+        <VictoryPieComponent />
+        <ChartText />
+      </View>
+    );
+  } else {
+    // Android workaround by wrapping VictoryPie with SVG
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <Svg
+          width={SIZES.width}
+          height={SIZES.width}
+          style={{ width: "100%", height: "auto" }}
+        >
+          <VictoryPieComponent />
+        </Svg>
+        <ChartText />
       </View>
     );
   }
