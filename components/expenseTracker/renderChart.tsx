@@ -18,7 +18,8 @@ import { processCategoryDataToDisplay } from "./processCategoryDataToDisplay";
 
 export const renderChart = (
   categories: RenderItemProps[],
-  selectedCategory: RenderItemProps
+  selectedCategory: RenderItemProps,
+  setSelectCategoryByName: (arg0: string) => void
 ) => {
   const chartData = processCategoryDataToDisplay(categories);
   const colorScales = chartData.map((item) => item.color);
@@ -48,6 +49,34 @@ export const renderChart = (
             }
             return ret;
           }}
+          style={{
+            labels: { fill: "white", ...FONTS.body3 },
+            parent: {
+              boxShadow: "10",
+              //...styles.shadow,
+            },
+          }}
+          width={SIZES.width * 0.8}
+          height={SIZES.width * 0.8}
+          colorScale={colorScales}
+          events={[
+            {
+              target: "data",
+              eventHandlers: {
+                onPress: () => {
+                  return [
+                    {
+                      target: "labels",
+                      mutation: (props) => {
+                        const categoryName = chartData[props.index].name;
+                        setSelectCategoryByName(categoryName);
+                      },
+                    },
+                  ];
+                },
+              },
+            },
+          ]}
         />
       </View>
     );
