@@ -41,6 +41,11 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState<RenderItemProps>();
   const [showMoreToggle, setShowMoreToggle] = useState<boolean>(false);
 
+  const setSelectCategoryByName = (name: string) => {
+    const category = categories.filter((a) => a.name == name);
+    setSelectedCategory(category[0]);
+  };
+
   return (
     <View>
       <Text>Home</Text>
