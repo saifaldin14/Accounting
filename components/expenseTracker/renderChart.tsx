@@ -110,7 +110,6 @@ export const renderChart = (
       </View>
     );
   }
-  return <div></div>;
 };
 
 const styles = StyleSheet.create({
