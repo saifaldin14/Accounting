@@ -1,23 +1,7 @@
 import React, { useRef, useState } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Image,
-  ImageBackground,
-  TouchableOpacity,
-  FlatList,
-  Animated,
-  Platform,
-} from "react-native";
-import { VictoryPie } from "victory-native";
+import { StyleSheet, ScrollView, View, Animated } from "react-native";
 
-import { Svg } from "react-native-svg";
-
-import { COLORS, FONTS, SIZES, icons } from "../constants";
+import { COLORS } from "../constants";
 import { categoriesData } from "../data";
 import { RenderItemProps } from "../interfaces";
 import { renderCategoryHeaderSection } from "../components/expenseTracker/renderCategoryHeaderSection";
@@ -26,9 +10,7 @@ import {
   renderNavBar,
 } from "../components/expenseTracker/renderVals";
 import { renderCategoryList } from "../components/expenseTracker/renderCategoryList";
-import { renderIncomingExpensesTitle } from "../components/expenseTracker/renderIncomingExpensesTitle";
 import { renderIncomingExpenses } from "../components/expenseTracker/renderIncomingExpenses";
-import { processCategoryDataToDisplay } from "../components/expenseTracker/processCategoryDataToDisplay";
 import { renderChart } from "../components/expenseTracker/renderChart";
 import { renderExpenseSummary } from "../components/expenseTracker/renderExpenseSummary";
 
