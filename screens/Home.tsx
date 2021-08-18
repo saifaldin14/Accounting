@@ -30,6 +30,7 @@ import { renderIncomingExpensesTitle } from "../components/expenseTracker/render
 import { renderIncomingExpenses } from "../components/expenseTracker/renderIncomingExpenses";
 import { processCategoryDataToDisplay } from "../components/expenseTracker/processCategoryDataToDisplay";
 import { renderChart } from "../components/expenseTracker/renderChart";
+import { renderExpenseSummary } from "../components/expenseTracker/renderExpenseSummary";
 
 const Home = () => {
   const categoryListHeightAnimationValue = useRef(
@@ -39,7 +40,9 @@ const Home = () => {
   const [categories, setCategories] =
     useState<RenderItemProps[]>(categoriesData);
   const [viewMode, setViewMode] = useState<string>("chart");
-  const [selectedCategory, setSelectedCategory] = useState<RenderItemProps>();
+  const [selectedCategory, setSelectedCategory] = useState<RenderItemProps>(
+    categoriesData[0]
+  );
   const [showMoreToggle, setShowMoreToggle] = useState<boolean>(false);
 
   const setSelectCategoryByName = (name: string) => {
@@ -48,8 +51,40 @@ const Home = () => {
   };
 
   return (
-    <View>
-      <Text>Home</Text>
+    <View style={{ flex: 1, backgroundColor: COLORS.lightGray2 }}>
+      {/* Nav bar section */}
+      {renderNavBar()}
+
+      {/* Header section */}
+      {renderHeader()}
+
+      {/* Category Header Section */}
+      {renderCategoryHeaderSection(categoriesData, viewMode, setViewMode)}
+
+      <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
+        {viewMode == "list" && (
+          <View>
+            {renderCategoryList(
+              categoryListHeightAnimationValue,
+              categories,
+              showMoreToggle,
+              setSelectedCategory,
+              setShowMoreToggle
+            )}
+            {renderIncomingExpenses(selectedCategory)}
+          </View>
+        )}
+        {viewMode == "chart" && (
+          <View>
+            {renderChart(categories, selectedCategory, setSelectCategoryByName)}
+            {renderExpenseSummary(
+              categories,
+              selectedCategory,
+              setSelectCategoryByName
+            )}
+          </View>
+        )}
+      </ScrollView>
     </View>
   );
 };
