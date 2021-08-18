@@ -78,6 +78,13 @@ export const renderChart = (
             },
           ]}
         />
+
+        <View style={{ position: "absolute", top: "42%", left: "42%" }}>
+          <Text style={{ ...FONTS.h1, textAlign: "center" }}>
+            {totalExpenseCount}
+          </Text>
+          <Text style={{ ...FONTS.body3, textAlign: "center" }}>Expenses</Text>
+        </View>
       </View>
     );
   }
