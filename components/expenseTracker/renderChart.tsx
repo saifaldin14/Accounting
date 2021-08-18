@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Animated,
-  FlatList,
-  Platform,
-} from "react-native";
-import { Value } from "react-native-reanimated";
+import { View, Text, StyleSheet, Platform } from "react-native";
 import Svg from "react-native-svg";
 import { VictoryPie } from "victory-native";
 
