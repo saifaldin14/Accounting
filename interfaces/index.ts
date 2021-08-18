@@ -21,3 +21,12 @@ export interface RenderItemExpenseProps {
   total: number;
   status: string;
 }
+
+export interface RenderItemChart {
+  id: number;
+  label: string;
+  y: number;
+  expenseCount: number;
+  color: string;
+  name: string;
+}
