@@ -2,7 +2,7 @@ import React from "react";
 import { View, TouchableOpacity, Text, FlatList } from "react-native";
 
 import { COLORS, FONTS, SIZES, icons } from "../../constants";
-import { RenderItemProps } from "../../interfaces";
+import { RenderItemProps, RenderItemChart } from "../../interfaces";
 import { processCategoryDataToDisplay } from "./processCategoryDataToDisplay";
 
 export const renderExpenseSummary = (
@@ -11,7 +11,7 @@ export const renderExpenseSummary = (
   setSelectCategoryByName: (arg0: string) => void
 ) => {
   const data = processCategoryDataToDisplay(categories);
-  const renderItem: React.FC<RenderItemProps> = (item) => (
+  const renderItem: React.FC<RenderItemChart> = (item) => (
     <React.Fragment>
       <TouchableOpacity
         style={{
