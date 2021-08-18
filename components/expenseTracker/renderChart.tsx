@@ -7,20 +7,51 @@ import {
   StyleSheet,
   Animated,
   FlatList,
+  Platform,
 } from "react-native";
 import { Value } from "react-native-reanimated";
+import { VictoryPie } from "victory-native";
 
 import { COLORS, FONTS, SIZES, icons } from "../../constants";
 import { RenderItemProps } from "../../interfaces";
 import { processCategoryDataToDisplay } from "./processCategoryDataToDisplay";
 
-export const renderChart = (categories: RenderItemProps[]) => {
+export const renderChart = (
+  categories: RenderItemProps[],
+  selectedCategory: RenderItemProps
+) => {
   const chartData = processCategoryDataToDisplay(categories);
   const colorScales = chartData.map((item) => item.color);
   const totalExpenseCount = chartData.reduce(
     (a, b) => a + (b.expenseCount || 0),
     0
   );
+
+  if (Platform.OS === "ios") {
+    return (
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <VictoryPie
+          data={chartData}
+          labels={(datum) => `${datum.y}`}
+          radius={({ datum }) =>
+            selectedCategory && selectedCategory.name === datum.name
+              ? SIZES.width * 0.4
+              : SIZES.width * 0.4 - 10
+          }
+          innerRadius={70}
+          labelRadius={({ innerRadius }) => {
+            let ret: number = 0;
+            if (typeof innerRadius === "number") {
+              ret = (SIZES.width * 0.4 + innerRadius) / 2.5;
+            } else {
+              ret = (SIZES.width * 0.4) / 2.5;
+            }
+            return ret;
+          }}
+        />
+      </View>
+    );
+  }
   return <div></div>;
 };
 
