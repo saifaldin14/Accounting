@@ -28,6 +28,7 @@ import {
 import { renderCategoryList } from "../components/expenseTracker/renderCategoryList";
 import { renderIncomingExpensesTitle } from "../components/expenseTracker/renderIncomingExpensesTitle";
 import { renderIncomingExpenses } from "../components/expenseTracker/renderIncomingExpenses";
+import { processCategoryDataToDisplay } from "../components/expenseTracker/processCategoryDataToDisplay";
 
 const Home = () => {
   const categoryListHeightAnimationValue = useRef(
